@@ -52,7 +52,7 @@ const MOCK_REVIEWS: Review[] = [
 // MOCK_PROPERTIES now uses SerializableAmenity for its 'amenities' field
 export const MOCK_PROPERTIES: Property[] = [
     {
-        id: 'prop1',
+        id: '4uzdbciXEmgFu6g1jrL1',
         title: 'Villa Orla | 6 Beds | Private Pool Villa with Chef & Lift Near Calangute & Anjuna',
         location: 'Goa',
         pricePerNight: 32000,
@@ -112,7 +112,7 @@ Experience the best of Goa with unmatched comfort and hospitality at Villa Orla.
         coordinates: { lat: 15.5467, lng: 73.7518 },
     },
     {
-        id: 'prop2',
+        id: '4uzdbciXEmgFu6g1jrL2',
         title: 'Cozy Apartment near Anjuna Flea Market',
         location: 'Goa',
         pricePerNight: 4500,
@@ -137,7 +137,7 @@ Experience the best of Goa with unmatched comfort and hospitality at Villa Orla.
         coordinates: { lat: 15.582, lng: 73.7428 },
     },
     {
-        id: 'prop3',
+        id: '4uzdbciXEmgFu6g1jrL3',
         title: 'Rustic Beach House in Palolem',
         location: 'Goa',
         pricePerNight: 8000,
@@ -162,7 +162,7 @@ Experience the best of Goa with unmatched comfort and hospitality at Villa Orla.
         coordinates: { lat: 15.01, lng: 74.0231 },
     },
     {
-        id: 'prop4',
+        id: '4uzdbciXEmgFu6g1jrL4',
         title: 'Modern Studio in Panjim Center',
         location: 'Goa',
         pricePerNight: 3000,
