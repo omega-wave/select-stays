@@ -1,0 +1,47 @@
+{
+    "indexes": [
+        {
+            "collectionGroup": "properties",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "location",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "pricePerNight",
+                    "order": "ASCENDING"
+                }
+            ]
+        },
+        {
+            "collectionGroup": "properties",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "type",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "pricePerNight",
+                    "order": "ASCENDING"
+                }
+            ]
+        },
+        {
+            "collectionGroup": "properties",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "guests",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "pricePerNight",
+                    "order": "ASCENDING"
+                }
+            ]
+        }
+    ],
+    "fieldOverrides": []
+}

@@ -39,6 +39,7 @@ export default function PropertyListings({ initialProperties }: PropertyListings
             propertyType: undefined,
         };
     });
+
     const filteredProperties = useMemo(() => {
         return initialProperties.filter((property) => {
             if (filters.city && property.location.toLowerCase() !== filters.city.toLowerCase() && filters.city !== "All") {
@@ -61,6 +62,7 @@ export default function PropertyListings({ initialProperties }: PropertyListings
             return true;
         });
     }, [initialProperties, filters]);
+
     return (
         <Container className="py-6 md:py-10">
             <FilterBar onFilterChange={setFilters} />

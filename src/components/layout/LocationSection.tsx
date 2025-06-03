@@ -46,7 +46,7 @@ export default function LocationSection() {
                                     <h3 className="text-lg font-semibold">{location.name}</h3>
                                 </div>{" "}
                                 <div className="relative h-full w-full">
-                                    <Image src={location.image} alt={location.name} layout="fill" objectFit="cover" />
+                                    <Image src={location.image} alt={location.name} fill className="object-cover" />
                                 </div>
                             </Card>
                         </Link>

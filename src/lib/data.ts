@@ -189,29 +189,76 @@ Experience the best of Goa with unmatched comfort and hospitality at Villa Orla.
     },
 ];
 
-// Simulate API calls
+// Get properties from Firestore
+import { db, propertyConverter } from './firebase';
+import { collection, getDocs, doc, getDoc, query, limit } from 'firebase/firestore';
+
 export const getProperties = async (): Promise<Property[]> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(MOCK_PROPERTIES);
-        }, 500);
-    });
+    try {
+        const propertiesCollection = collection(db, 'properties').withConverter(propertyConverter);
+        const querySnapshot = await getDocs(propertiesCollection);
+
+        const properties = querySnapshot.docs.map((doc) => doc.data());
+
+        // If no properties found in Firestore, fall back to mock data
+        if (properties.length === 0) {
+            console.log('No properties found in Firestore, using mock data instead');
+            return [];
+        }
+
+        return properties;
+    } catch (error) {
+        console.error('Error fetching properties from Firestore:', error);
+        // Fall back to mock data on error
+        return MOCK_PROPERTIES;
+    }
 };
 
 export const getPropertyById = async (id: string): Promise<Property | undefined> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(MOCK_PROPERTIES.find((p) => p.id === id));
-        }, 300);
-    });
+    try {
+        const propertyRef = doc(db, 'properties', id).withConverter(propertyConverter);
+        const propertySnap = await getDoc(propertyRef);
+
+        if (propertySnap.exists()) {
+            return propertySnap.data();
+        } else {
+            // If not found in Firestore, check mock data as fallback
+            console.log(`Property with ID ${id} not found in Firestore, checking mock data`);
+            return MOCK_PROPERTIES.find((p) => p.id === id);
+        }
+    } catch (error) {
+        console.error(`Error fetching property ${id} from Firestore:`, error);
+        // Fall back to mock data on error
+        return MOCK_PROPERTIES.find((p) => p.id === id);
+    }
 };
 
 // This function returns SerializableAmenity[] for use in Server Components or when passing data to Client Components
 export const getAmenities = async (): Promise<SerializableAmenity[]> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            // Map CLIENT_AMENITIES_CONFIG to exclude the 'icon' component, returning only serializable data
-            resolve(CLIENT_AMENITIES_CONFIG.map(({ icon, ...serializablePart }) => serializablePart));
-        }, 100);
-    });
+    try {
+        // Try to get amenities from Firestore
+        const amenitiesCollection = collection(db, 'amenities');
+        const querySnapshot = await getDocs(amenitiesCollection);
+
+        const amenities = querySnapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                name: data.name,
+                iconName: data.iconName,
+            };
+        });
+
+        // If no amenities found in Firestore, fall back to mock data
+        if (amenities.length === 0) {
+            console.log('No amenities found in Firestore, using client config instead');
+            return CLIENT_AMENITIES_CONFIG.map(({ icon, ...serializablePart }) => serializablePart);
+        }
+
+        return amenities;
+    } catch (error) {
+        console.error('Error fetching amenities from Firestore:', error);
+        // Fall back to client config on error
+        return CLIENT_AMENITIES_CONFIG.map(({ icon, ...serializablePart }) => serializablePart);
+    }
 };
