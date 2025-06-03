@@ -1,52 +1,73 @@
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Waves } from 'lucide-react';
-import Container from './Container';
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
+import Container from "./Container";
 
 export default function Header() {
-  const navItems = [
-    { href: '/', label: 'Home' },
-    { href: '/bookings', label: 'My Bookings' },
-    { href: '/profile', label: 'Profile' },
-  ];
+    const navItems = [
+        { href: "/about-us", label: "About Us" },
+        { href: "/explore-stays", label: "Explore Stays" },
+        { href: "/list-property", label: "List Your Property" },
+        { href: "/contact-us", label: "Contact Us" },
+    ];
 
-  return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
-      <Container className="flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <Waves className="h-7 w-7 text-primary" />
-          <span className="font-headline text-2xl font-bold text-primary">GoaGetaways</span>
-        </Link>
-
-        <nav className="hidden md:flex gap-2">
-          {navItems.map((item) => (
-            <Button key={item.label} variant="ghost" asChild>
-              <Link href={item.href}>{item.label}</Link>
-            </Button>
-          ))}
-        </nav>
-
-        <div className="md:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Open menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right">
-              <nav className="flex flex-col gap-4 mt-8">
-                {navItems.map((item) => (
-                  <Button key={item.label} variant="ghost" asChild className="w-full justify-start text-lg">
-                    <Link href={item.href}>{item.label}</Link>
-                  </Button>
-                ))}
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </Container>
-    </header>
-  );
+    return (
+        <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
+            {" "}
+            <Container className="flex h-[72px] items-center justify-between">
+                {" "}
+                <Link href="/" className="flex items-center">
+                    <Image
+                        src="https://selectstays.in/wp-content/uploads/2025/02/cropped-Logo_Final-18-1.png"
+                        alt="Select Stays Logo"
+                        width={140}
+                        height={32}
+                        priority
+                    />
+                </Link>
+                <nav className="hidden md:flex gap-8">
+                    {navItems.map((item) => (
+                        <Link key={item.label} href={item.href} className="text-gray-700 hover:text-primary text-[14px] font-medium">
+                            {item.label}
+                        </Link>
+                    ))}
+                </nav>{" "}
+                <div className="md:hidden">
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <Button variant="ghost" size="icon" className="text-slate-700">
+                                <Menu className="h-5 w-5" />
+                                <span className="sr-only">Open menu</span>
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent side="right">
+                            {" "}
+                            <div className="flex items-center mb-8 mt-4">
+                                <Image
+                                    src="https://selectstays.in/wp-content/uploads/2025/02/cropped-Logo_Final-18-1.png"
+                                    alt="Select Stays Logo"
+                                    width={120}
+                                    height={28}
+                                    priority
+                                />
+                            </div>
+                            <nav className="flex flex-col gap-5 mt-2">
+                                {navItems.map((item) => (
+                                    <Link
+                                        key={item.label}
+                                        href={item.href}
+                                        className="text-gray-700 hover:text-primary text-sm font-medium"
+                                    >
+                                        {item.label}
+                                    </Link>
+                                ))}
+                            </nav>
+                        </SheetContent>
+                    </Sheet>
+                </div>
+            </Container>
+        </header>
+    );
 }

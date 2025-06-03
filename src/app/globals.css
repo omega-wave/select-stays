@@ -1,107 +1,130 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 60 56% 90%; /* Light Beige */
-    --foreground: 20 14% 28%; /* Dark Grayish Brown */
+    :root {
+        --background: 0 0% 98%; /* Clean white background */
+        --foreground: 240 10% 20%; /* Dark slate for text */
 
-    --card: 60 56% 95%; /* Lighter Beige */
-    --card-foreground: 20 14% 28%;
+        --card: 0 0% 100%; /* Pure white cards */
+        --card-foreground: 240 10% 20%;
+        --card-shadow: 0 2px 12px -2px hsl(240 5% 84% / 0.8); /* Subtle shadow */
 
-    --popover: 60 56% 95%;
-    --popover-foreground: 20 14% 28%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 240 10% 20%;
+        --primary: 205 90% 40%; /* Select Stays blue */
+        --primary-foreground: 0 0% 100%;
+        --primary-hover: 205 90% 35%; /* Slightly darker on hover */
 
-    --primary: 0 82% 75%; /* Soft Coral */
-    --primary-foreground: 0 0% 100%; /* White */
+        --secondary: 240 5% 96%; /* Very light gray */
+        --secondary-foreground: 240 10% 20%;
 
-    --secondary: 0 75% 85%; /* Lighter Coral */
-    --secondary-foreground: 0 0% 20%; /* Dark text for secondary */
+        --muted: 240 5% 96%;
+        --muted-foreground: 240 4% 46%;
 
-    --muted: 60 50% 92%; /* Very light beige */
-    --muted-foreground: 60 25% 50%; /* Muted text color */
+        --accent: 320 84% 60%; /* Modern pink */
+        --accent-foreground: 0 0% 100%;
 
-    --accent: 180 100% 25%; /* Teal */
-    --accent-foreground: 0 0% 100%; /* White */
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+        --border: 240 6% 90%; /* Light gray border */
+        --input: 240 6% 90%;
+        --ring: 210 100% 50%; /* Matching primary */
 
-    --border: 60 40% 80%; /* Beige Border */
-    --input: 60 40% 85%; /* Beige Input Background */
-    --ring: 0 82% 75%; /* Soft Coral for Focus Ring */
+        --chart-1: 210 100% 50%; /* Blue */
+        --chart-2: 320 84% 60%; /* Pink */
+        --chart-3: 160 84% 39%; /* Teal */
+        --chart-4: 36 100% 50%; /* Amber */
+        --chart-5: 270 50% 60%; /* Purple */
 
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+        --radius: 0.5rem;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 
-    --sidebar-background: 60 56% 93%; /* Consistent with card background */
-    --sidebar-foreground: 20 14% 35%;
-    --sidebar-primary: 0 82% 70%; /* Primary but slightly adjusted for sidebar context */
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 180 100% 22%; /* Accent but slightly adjusted */
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 60 40% 78%;
-    --sidebar-ring: 0 82% 75%;
-  }
+        --sidebar-background: 240 10% 20%; /* Dark slate */
+        --sidebar-foreground: 0 0% 98%;
+        --sidebar-primary: 210 100% 50%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 320 84% 60%;
+        --sidebar-accent-foreground: 0 0% 100%;
+        --sidebar-border: 240 10% 30%;
+        --sidebar-ring: 210 100% 50%;
+    }
 
-  .dark {
-    --background: 20 10% 10%; /* Dark Warm Black */
-    --foreground: 60 50% 85%; /* Light Beige Text */
+    .dark {
+        --background: 240 10% 10%; /* Very dark slate */
+        --foreground: 0 0% 95%;
 
-    --card: 20 10% 15%;
-    --card-foreground: 60 50% 85%;
+        --card: 240 10% 15%;
+        --card-foreground: 0 0% 95%;
+        --card-shadow: 0 2px 12px -2px hsl(240 5% 4% / 0.8);
 
-    --popover: 20 10% 15%;
-    --popover-foreground: 60 50% 85%;
+        --popover: 240 10% 15%;
+        --popover-foreground: 0 0% 95%;
 
-    --primary: 0 70% 60%; /* Coral for Dark Mode */
-    --primary-foreground: 0 0% 10%; /* Dark Text on Dark Primary */
+        --primary: 210 100% 50%;
+        --primary-foreground: 0 0% 100%;
+        --primary-hover: 210 100% 45%;
 
-    --secondary: 0 60% 50%;
-    --secondary-foreground: 0 0% 90%;
+        --secondary: 240 10% 20%;
+        --secondary-foreground: 0 0% 95%;
 
-    --muted: 20 10% 20%;
-    --muted-foreground: 60 30% 60%;
+        --muted: 240 10% 20%;
+        --muted-foreground: 240 5% 65%;
 
-    --accent: 180 80% 40%; /* Teal for Dark Mode */
-    --accent-foreground: 0 0% 10%; /* Dark Text on Dark Accent */
+        --accent: 320 84% 60%;
+        --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 98%;
 
-    --border: 20 10% 25%;
-    --input: 20 10% 22%;
-    --ring: 0 70% 60%;
+        --border: 240 10% 25%;
+        --input: 240 10% 25%;
+        --ring: 210 100% 50%;
 
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+        --chart-1: 210 100% 50%;
+        --chart-2: 320 84% 60%;
+        --chart-3: 160 84% 39%;
+        --chart-4: 36 100% 50%;
+        --chart-5: 270 50% 60%;
 
-    --sidebar-background: 20 10% 12%;
-    --sidebar-foreground: 60 50% 80%;
-    --sidebar-primary: 0 70% 55%;
-    --sidebar-primary-foreground: 0 0% 10%;
-    --sidebar-accent: 180 80% 35%;
-    --sidebar-accent-foreground: 0 0% 10%;
-    --sidebar-border: 20 10% 20%;
-    --sidebar-ring: 0 70% 60%;
-  }
+        --sidebar-background: 240 10% 12%;
+        --sidebar-foreground: 0 0% 95%;
+        --sidebar-primary: 210 100% 50%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 320 84% 60%;
+        --sidebar-accent-foreground: 0 0% 100%;
+        --sidebar-border: 240 10% 20%;
+        --sidebar-ring: 210 100% 50%;
+    }
+
+    /* Custom font styling for Select Stays header */
+    .font-headline {
+        letter-spacing: 0.02em;
+    }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+
+    /* Smooth transitions for interactive elements */
+    a,
+    button,
+    input[type="button"],
+    input[type="submit"] {
+        @apply transition-colors duration-200;
+    }
 }
