@@ -1,5 +1,5 @@
 // Common seeding functions to be used by both regular and emulator seeding scripts
-import { Firestore, collection, doc, setDoc, FirestoreDataConverter } from 'firebase/firestore';
+import { Firestore, collection, doc, setDoc, FirestoreDataConverter, addDoc } from 'firebase/firestore';
 import type { Property, Amenity } from '@/types';
 import { MOCK_PROPERTIES, CLIENT_AMENITIES_CONFIG } from '@/lib/data';
 
@@ -9,6 +9,7 @@ export const propertyConverter: FirestoreDataConverter<Property> = {
         // Create a clean version of the property with valid data types
         // Make sure all fields with proper types are included and formatted correctly for Firestore
         const cleanProperty = {
+            id: String(property.id), // Ensure ID is a string
             title: property.title,
             location: property.location,
             pricePerNight: Number(property.pricePerNight),
@@ -47,6 +48,7 @@ export const propertyConverter: FirestoreDataConverter<Property> = {
 
         return cleanProperty;
     },
+
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
         return {
@@ -65,16 +67,28 @@ async function seedProperties(db: Firestore) {
         // Process one property at a time for better error reporting
         for (const property of MOCK_PROPERTIES) {
             try {
-                const propertyRef = doc(propertiesCollection, property.id);
-                const propertyData = propertyConverter.toFirestore(property);
+                // DIFFERENCE 1: The working code uses addDoc instead of setDoc with a predefined ID
+                // const propertyRef = doc(propertiesCollection, property.id);
+                // await setDoc(propertyRef, minimalPropertyData);
 
-                // Add extra debugging
-                console.log(`Attempting to add property: ${property.title} (ID: ${property.id})`);
+                // Try using addDoc which auto-generates IDs (similar to your working example)
+                const minimalPropertyData = {
+                    title: String(property.title),
+                    // Add a few more basic fields similar to your working example
+                    price: Number(property.pricePerNight),
+                    createdAt: new Date(),
+                };
 
-                await setDoc(propertyRef, propertyData);
-                console.log(`Successfully added property: ${property.title}`);
-            } catch (propertyError) {
+                // DIFFERENCE 2: addDoc auto-generates IDs instead of using predetermined IDs
+                console.log(`Attempting to add property: ${property.title}`);
+                const docRef = await addDoc(propertiesCollection, minimalPropertyData);
+                console.log(`Successfully added property: ${property.title} with generated ID: ${docRef.id}`);
+            } catch (propertyError: any) {
                 console.error(`Error adding property ${property.id}:`, propertyError);
+                // Print more detailed error info if available
+                if (propertyError.code && propertyError.message) {
+                    console.error(`Error code: ${propertyError.code}, Message: ${propertyError.message}`);
+                }
                 throw propertyError;
             }
         }

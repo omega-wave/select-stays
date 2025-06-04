@@ -1,21 +1,11 @@
 // Firebase configuration and initialization
 import { initializeApp } from 'firebase/app';
-import {
-    getFirestore,
-    collection,
-    getDocs,
-    doc,
-    getDoc,
-    DocumentData,
-    QueryDocumentSnapshot,
-    SnapshotOptions,
-    connectFirestoreEmulator,
-} from 'firebase/firestore';
-import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import { getFirestore, DocumentData, QueryDocumentSnapshot, SnapshotOptions } from 'firebase/firestore';
 import type { Property } from '@/types';
+import dotenv from 'dotenv';
 
-// Your web app's Firebase configuration
-// Replace with your actual Firebase config
+dotenv.config({ path: '.env.local' });
+
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -26,31 +16,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-// Initialize App Check with reCAPTCHA v3
-// For development, uncomment the self.FIREBASE_APPCHECK_DEBUG_TOKEN line
-if (typeof window !== 'undefined') {
-    // Only run on client-side
-    if (process.env.NODE_ENV === 'development') {
-        // @ts-ignore
-        self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
-    }
-
-    const appCheck = initializeAppCheck(app, {
-        provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''),
-        isTokenAutoRefreshEnabled: true,
-    });
-}
-
+const app = initializeApp(firebaseConfig, 'select-stays-web-app');
 const db = getFirestore(app);
-
-// Connect to the emulator if we're in development mode and
-// NEXT_PUBLIC_USE_FIREBASE_EMULATOR is set to true
-if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === 'true') {
-    console.log('Connecting to Firestore emulator on localhost:8080');
-    connectFirestoreEmulator(db, 'localhost', 8080);
-}
 
 // Firestore converter for Property objects
 export const propertyConverter = {
@@ -92,6 +59,7 @@ export const propertyConverter = {
                 : null,
         };
     },
+
     fromFirestore: (snapshot: QueryDocumentSnapshot, options: SnapshotOptions): Property => {
         const data = snapshot.data(options);
         return {

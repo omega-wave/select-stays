@@ -7,7 +7,7 @@ export interface Amenity {
 }
 
 export interface Review {
-    id: string;
+    id?: string;
     guestName: string;
     rating: number;
     comment: string;
@@ -36,6 +36,9 @@ export interface Property {
     beds: number;
     baths: number;
     coordinates?: { lat: number; lng: number };
+
+    // Allow additional properties of any type
+    [key: string]: any;
 }
 
 export interface FilterState {

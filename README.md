@@ -1,3 +1,4 @@
+npx tsx src/scripts/seed-test.ts
 npm install -g firebase-tools
 
 # Select Stays
